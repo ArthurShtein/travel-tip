@@ -31,11 +31,25 @@ function onAddMarker() {
 }
 
 function onGetLocs() {
-    locService.getLocs()
-        .then(locs => {
-            console.log('Locations:', locs)
-            document.querySelector('.locs').innerText = JSON.stringify(locs)
-        })
+  const elLocs = document.querySelector('.main-table');
+  locService.getLocs().then((locs) => {
+    var strHTMLs = locs.map((loc) => {
+      return `<tr>
+          <td>${loc.id}</td>
+          <td>${loc.name}</td>
+          <td>${loc.lat}</td>
+          <td>${loc.lng}</td>
+          <td><button class="go-btn"onclick="onPanTo()">Go</button>
+          <button class="delete-btn"onclick="onPanTo()">Delete</button>
+          </td>
+          
+          </tr>`;
+    });
+    elLocs.innerHTML = strHTMLs.join('');
+
+    console.log('Locations:', locs);
+    // document.querySelector('.locs').innerText = JSON.stringify(locs);
+  });
 }
 
 function onGetUserPos() {
