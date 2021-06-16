@@ -1,10 +1,11 @@
 export const locService = {
-    getLocs,
-    getLocationFromStorage,
-    addLocation,
-    getWeather, 
+  getLocs,
+  getLocationFromStorage,
+  addLocation,
+  putMarkers,
+  deleteLoc,
 };
-
+import { mapService } from './map.service.js';
 import { storageService } from './storage-service.js';
 const KEY = 'locsDB';
 var gLocs;
@@ -22,10 +23,19 @@ function getLocationFromStorage() {
         gLocs = locs;
     }
 }
+function putMarkers(locs) {
+  console.log(locs);
+  const markers = locs.map((loc) => {
+    return { lat: loc.lat, lng: loc.lng };
+  });
+  markers.forEach((markerLoc) => {
+    mapService.addMarker(markerLoc);
+  });
+}
 
 function addLocation(name, { lat, lng }) {
-    gLocs.push({ id: gId++, name, lat: lat.toFixed(5), lng: lng.toFixed(5) });
-    storageService.save(KEY, gLocs);
+  gLocs.push({ id: gId++, name, lat, lng });
+  storageService.save(KEY, gLocs);
 }
 
 function getLocs() {
@@ -45,4 +55,13 @@ function getWeather() {
             console.log(res.data)
             renderWeather(res.data)
         })
+}
+function deleteLoc(locId) {
+  console.log('Deleting: ', locId);
+  var locIdx = gLocs.findIndex((loc) => {
+    return locId === loc.id;
+  });
+  if (locIdx === -1) return;
+  gLocs.splice(locIdx, 1);
+  storageService.save(KEY, gLocs);
 }
