@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelTip</title>
+
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header> 
+        
+        <h1>Travel Tip</h1>
+        
+        <div class="buttons">
+            
+            <form onsubmit="onGoLocation(event)"></form>
+            <input type="text" name="search" placeholder="Enter Location">
+            <button class="go"> GO </button>
+            </form>
+    
+            <button onclick="onMyLocation()"> My Location</button>
+
+        </div>
+
+
+    </header>
+
+    <div class="location-container">
+        <h2> Location: Central Park, New York</h2>
+        <button> Copy Location</button>
+    </div>
+
+    <div class="travel-container">
+
+        <aside class=side-info>
+
+            <div class="weather-info"></div>
+            <div class="locations-table"></div>
+
+        </aside>
+
+
+        <div id="map" style="width: 50%; height: 600px;"></div>
+    </div>
+
+    <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
+    <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
+    <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
+    <button onclick="onPanTo()"class="btn-pan">Pan Map to Tokyo</button>
+
+    <p>You are at: <span class="user-pos"></span></p>
+    <p>Locations: <span class="locs"></span></p>
+    
+
+    <script type="module" src="js/app.controller.js"></script>
+</body>
+</html>
