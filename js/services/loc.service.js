@@ -4,7 +4,9 @@ export const locService = {
   addLocation,
   putMarkers,
   deleteLoc,
+  getWeather
 };
+
 import { mapService } from './map.service.js';
 import { storageService } from './storage-service.js';
 const KEY = 'locsDB';
@@ -16,8 +18,8 @@ function getLocationFromStorage() {
 
     if (!locs.length) {
         gLocs = [
-            { id: gId++, name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
-            { id: gId++, name: 'Neveragain', lat: 32.047201, lng: 34.832581 },
+            { id: ++gId, name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
+            { id: ++gId, name: 'Neveragain', lat: 32.047201, lng: 34.832581 },
         ];
     } else {
         gLocs = locs;
@@ -34,15 +36,21 @@ function putMarkers(locs) {
 }
 
 function addLocation(name, { lat, lng }) {
-  gLocs.push({ id: gId++, name, lat, lng });
+  var lastObjectIdx = gLocs.length -1
+  if ((gLocs[lastObjectIdx].id + 1) > gId) {
+      gId = gLocs[lastObjectIdx].id
+  }
+
+  gLocs.push({ id: ++gId, name, lat, lng });
   storageService.save(KEY, gLocs);
+
 }
 
 function getLocs() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(gLocs);
-        }, 2000);
+        }, 0);
     });
 }
 
@@ -56,6 +64,9 @@ function getWeather() {
             renderWeather(res.data)
         })
 }
+
+
+
 function deleteLoc(locId) {
   console.log('Deleting: ', locId);
   var locIdx = gLocs.findIndex((loc) => {

@@ -1,7 +1,7 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
-
+window.onMapClicked = onMapClicked;
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
@@ -29,6 +29,10 @@ function getPosition() {
 function onAddMarker() {
     console.log('Adding a marker');
     mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+}
+
+function onMapClicked() {
+    onGetLocs()
 }
 
 function onGetLocs() {
@@ -88,6 +92,7 @@ function onPanTo(lat, lng) {
 
 function onDeleteLoc(locId) {
   locService.deleteLoc(locId);
+  onGetLocs()
 }
 
 

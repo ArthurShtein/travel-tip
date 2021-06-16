@@ -19,6 +19,8 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
     });
     gMap.addListener('click', (mapMouseEvent) => {
       const placeName = prompt('Place name?');
+      if (!placeName) return
+
       const pos = JSON.stringify(mapMouseEvent.latLng.toJSON(), null, 2);
 
       const strPos = JSON.parse(pos);
@@ -34,7 +36,6 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 function addClickPos() {}
 
 function addMarker(loc) {
-  console.log(loc);
   var marker = new google.maps.Marker({
     position: loc,
     map: gMap,
@@ -62,3 +63,4 @@ function _connectGoogleApi() {
     elGoogleApi.onerror = () => reject('Google script failed to load');
   });
 }
+
