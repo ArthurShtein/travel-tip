@@ -1,7 +1,10 @@
+import { locService } from './loc.service.js';
+
 export const mapService = {
   initMap,
   addMarker,
   panTo,
+  addClickPos,
 };
 
 var gMap;
@@ -14,9 +17,18 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
       center: { lat, lng },
       zoom: 15,
     });
-    console.log('Map!', gMap);
+    gMap.addListener('click', (mapMouseEvent) => {
+      const placeName = prompt('Place name?');
+      const pos = JSON.stringify(mapMouseEvent.latLng.toJSON(), null, 2);
+      const strPos = JSON.parse(pos);
+      locService.addLocation(placeName, strPos);
+      addMarker(mapMouseEvent.latLng);
+      console.log(pos);
+    });
   });
 }
+
+function addClickPos() {}
 
 function addMarker(loc) {
   var marker = new google.maps.Marker({

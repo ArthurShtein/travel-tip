@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,19 +9,20 @@
 
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-    <header> 
-        
+    <header>
+
         <h1>Travel Tip</h1>
-        
+
         <div class="buttons">
-            
+
             <form onsubmit="onGoLocation(event)"></form>
             <input type="text" name="search" placeholder="Enter Location">
             <button class="go"> GO </button>
             </form>
-    
+
             <button onclick="onMyLocation()"> My Location</button>
 
         </div>
@@ -38,7 +40,19 @@
         <aside class=side-info>
 
             <div class="weather-info"></div>
-            <div class="locations-table"></div>
+            <div class="locations-table">
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Lat</th>
+                        <th>Lng</th>
+                    </thead>
+                    <tbody class=main-table>
+
+                    </tbody>
+                </table>
+            </div>
 
         </aside>
 
@@ -49,12 +63,13 @@
     <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
     <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
     <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-    <button onclick="onPanTo()"class="btn-pan">Pan Map to Tokyo</button>
+    <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
 
     <p>You are at: <span class="user-pos"></span></p>
     <p>Locations: <span class="locs"></span></p>
-    
+
 
     <script type="module" src="js/app.controller.js"></script>
 </body>
+
 </html>
