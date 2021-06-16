@@ -15,6 +15,8 @@ function onInit() {
             console.log('Map is ready');
         })
         .catch(() => console.log('Error: cannot init map'));
+
+    locService.getWeather()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -31,10 +33,10 @@ function onAddMarker() {
 }
 
 function onGetLocs() {
-  const elLocs = document.querySelector('.main-table');
-  locService.getLocs().then((locs) => {
-    var strHTMLs = locs.map((loc) => {
-      return `<tr>
+    const elLocs = document.querySelector('.main-table');
+    locService.getLocs().then((locs) => {
+        var strHTMLs = locs.map((loc) => {
+            return `<tr>
           <td>${loc.id}</td>
           <td>${loc.name}</td>
           <td>${loc.lat}</td>
@@ -44,12 +46,12 @@ function onGetLocs() {
           </td>
           
           </tr>`;
-    });
-    elLocs.innerHTML = strHTMLs.join('');
+        });
+        elLocs.innerHTML = strHTMLs.join('');
 
-    console.log('Locations:', locs);
-    // document.querySelector('.locs').innerText = JSON.stringify(locs);
-  });
+        console.log('Locations:', locs);
+        // document.querySelector('.locs').innerText = JSON.stringify(locs);
+    });
 }
 
 function onGetUserPos() {
@@ -66,4 +68,13 @@ function onGetUserPos() {
 function onPanTo() {
     console.log('Panning the Map');
     mapService.panTo(35.6895, 139.6917);
+}
+
+
+function renderWeather(data) {  
+    console.log(data.main)
+
+    elCity = document.querySelector('.city')
+    elTemp = document.querySelector('.temp')
+    // elWind = document.querySelector('.wind').innerHTML = data.
 }

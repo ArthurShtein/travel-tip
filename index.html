@@ -39,7 +39,16 @@
 
         <aside class=side-info>
 
-            <div class="weather-info"></div>
+            <div class="weather-info">
+
+                <h2> Weather Today: </h2>
+                <h3 class="city"> City Name </h3>
+                <h3 class="temp">Temparature: 24c* </h3>
+                <h4 class="wind"> wind speed: 2/6ms</h4>
+
+
+            </div>
+
             <div class="locations-table">
                 <table>
                     <thead>
@@ -70,7 +79,7 @@
     <p>You are at: <span class="user-pos"></span></p>
     <p>Locations: <span class="locs"></span></p>
 
-
+    <script src="./lib/axios.js"></script>
     <script type="module" src="js/app.controller.js"></script>
 </body>
 
