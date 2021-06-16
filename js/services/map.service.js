@@ -20,9 +20,12 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
     gMap.addListener('click', (mapMouseEvent) => {
       const placeName = prompt('Place name?');
       const pos = JSON.stringify(mapMouseEvent.latLng.toJSON(), null, 2);
+
       const strPos = JSON.parse(pos);
+      console.log(strPos);
       locService.addLocation(placeName, strPos);
-      addMarker(mapMouseEvent.latLng);
+      addMarker(strPos);
+      //   addMarker(mapMouseEvent.latLng);
       console.log(pos);
     });
   });
@@ -31,10 +34,11 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 function addClickPos() {}
 
 function addMarker(loc) {
+  console.log(loc);
   var marker = new google.maps.Marker({
     position: loc,
     map: gMap,
-    title: 'Hello World!',
+    title: 'Hey',
   });
   return marker;
 }

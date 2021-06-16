@@ -4,7 +4,7 @@ import { mapService } from './services/map.service.js';
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
-window.onGetLocs = onGetLocs;
+// window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 
 function onInit() {
@@ -12,7 +12,7 @@ function onInit() {
   mapService
     .initMap()
     .then(() => {
-      console.log('Map is ready');
+      onGetLocs();
     })
     .catch(() => console.log('Error: cannot init map'));
 }
@@ -39,14 +39,31 @@ function onGetLocs() {
           <td>${loc.name}</td>
           <td>${loc.lat}</td>
           <td>${loc.lng}</td>
-          <td><button class="go-btn"onclick="onPanTo()">Go</button>
-          <button class="delete-btn"onclick="onPanTo()">Delete</button>
+          <td><button data-lat="${loc.lat}" data-lng="${loc.lng}"class="go-btn">Go</button>
+          
+          <button data-id="${loc.id}" class="delete-btn">Delete</button>
           </td>
           
           </tr>`;
     });
-    elLocs.innerHTML = strHTMLs.join('');
 
+    elLocs.innerHTML = strHTMLs.join('');
+    document.querySelectorAll('.go-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        var lat = +e.target.dataset.lat;
+        var lng = +e.target.dataset.lng;
+        onPanTo(lat, lng);
+      });
+    });
+    document.querySelectorAll('.delete-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        var locId = +e.target.dataset.id;
+        console.log(locId);
+        onDeleteLoc(locId);
+      });
+    });
+    locService.putMarkers(locs);
+    locService.deleteLoc(locs);
     console.log('Locations:', locs);
     // document.querySelector('.locs').innerText = JSON.stringify(locs);
   });
@@ -64,7 +81,11 @@ function onGetUserPos() {
       console.log('err!!!', err);
     });
 }
-function onPanTo() {
+function onPanTo(lat, lng) {
   console.log('Panning the Map');
-  mapService.panTo(35.6895, 139.6917);
+  mapService.panTo(lat, lng);
+}
+
+function onDeleteLoc(locId) {
+  locService.deleteLoc(locId);
 }
