@@ -25,8 +25,6 @@ function getPosition() {
   });
 }
 
-
-
 function onAddMarker() {
   console.log('Adding a marker');
   mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
@@ -41,6 +39,10 @@ function onGetLocs() {
           <td>${loc.name}</td>
           <td>${loc.lat}</td>
           <td>${loc.lng}</td>
+          <td><button class="go-btn"onclick="onPanTo()">Go</button>
+          <button class="delete-btn"onclick="onPanTo()">Delete</button>
+          </td>
+          
           </tr>`;
     });
     elLocs.innerHTML = strHTMLs.join('');
